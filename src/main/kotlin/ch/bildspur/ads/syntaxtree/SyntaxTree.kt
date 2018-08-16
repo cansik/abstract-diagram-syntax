@@ -31,7 +31,6 @@ class SyntaxTree(val defaultIntent: Int = 4) : BranchElement(BranchType.ROOT) {
     }
 
 
-
     fun toStringTree(element : SyntaxElement = this, builder : StringBuilder = StringBuilder(), intent : Int = 0) : String
     {
         // add intent

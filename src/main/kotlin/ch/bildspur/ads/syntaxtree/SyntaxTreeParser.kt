@@ -4,12 +4,14 @@ import ch.bildspur.ads.syntaxtree.types.BranchType
 import ch.bildspur.ads.syntaxtree.types.ElementType
 
 class SyntaxTreeParser {
-    val intentRegex = Regex("^(\\s)+")
+    private val textMatchRegex = "[\\w\\s,\\.\\-\\^'¨\\\$=\\/\\\\&%\\*\\+§;:_£!`\\?#°<>]*"
 
-    val commentRegex = Regex("^\\s*#(.*)\$")
-    val assignmentRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\s*=\\s*\"([\\w\\s]*)\"")
-    val actionRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\(\"?([\\w\\s]*)\"?\\)")
-    val branchRegex = Regex("^\\s*(if|while|do while|else)+\\s*(!?)(?:(\\w+)\\.(\\w+)\\(\"?([\\w\\s?!]*)\"?\\))?:")
+    private val intentRegex = Regex("^(\\s)+")
+
+    private val commentRegex = Regex("^\\s*#($textMatchRegex)\$")
+    private val assignmentRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\s*=\\s*\"($textMatchRegex)\"")
+    private val actionRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\(\"?($textMatchRegex)\"?\\)")
+    private val branchRegex = Regex("^\\s*(if|while|do while|else)+\\s*(!?)(?:(\\w+)\\.(\\w+)\\(\"?($textMatchRegex)\"?\\))?:")
 
     data class ElementDetectionResult(val type: ElementType, val result: MatchResult?)
 
