@@ -8,5 +8,5 @@ Tool which renders an abstract diagram Syntax into a Flow Charts.
 
 ## Authors
 
-* **Florian Brugisser** - [cansik](https://github.com/cansik/)
+* **Florian Bruggisser** - [cansik](https://github.com/cansik/)
 * **Alex Lehmann** - [iwant12cats](https://github.com/iwant12cats)
