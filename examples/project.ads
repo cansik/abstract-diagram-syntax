@@ -16,11 +16,27 @@ customer.start("Sends request")
 firstContact.do("New message in slack #request")
 
 if management.do("Accept Request?"):
-	chart.state = "Planning"
-	management.do("define project leader")
-	projectLeader.do("create porject in pms")
+    chart.state = "Planning"
+    management.do("define project leader")
+    projectLeader.do("create porject in pms")
+    projectLeader.do("create slack channel #project and invite team")
+    projectLeader.do("create folder structure on drive")
+    do while !management.do("is concept ok?"):
+        projectTeam.do("create concept")
+    do while !management.do("Project approved?"):
+        projectLeader.do("plan resources")
+    chart.state = "Implementation"
+    projectLeader.do("change pms status")
+    do while !management.do("is project finished"):
+        projectTeam.do("work on project")
+        projectLeader.do("create finished documentation")
+        projectLeader.do("report to management")
+        projectLeader.do("report to customer")
+    chart.state = "Closing"
+    projectLeader.do("create & send invoice")
+    projectLeader.do("create short recap of project")
+    projectLeader.do("cleanup and archive project")
 else
-	firstContact.out("Message to customer")
+    firstContact.out("Message to customer")
 
-chart.state = "Closing"
-customer.end()
+customer.end()	
