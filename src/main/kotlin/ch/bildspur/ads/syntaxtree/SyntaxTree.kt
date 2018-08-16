@@ -29,4 +29,25 @@ class SyntaxTree(val defaultIntent: Int = 4) : BranchElement(BranchType.ROOT) {
     fun merge() {
         branches.pop()
     }
+
+
+
+    fun toStringTree(element : SyntaxElement = this, builder : StringBuilder = StringBuilder(), intent : Int = 0) : String
+    {
+        // add intent
+        builder.append((0 until intent).joinToString(" ") { "" })
+
+        // add element
+        builder.appendln(element)
+
+        // add more branches
+        (element as? BranchElement)?.elements?.forEach {
+            toStringTree(it, builder, intent + defaultIntent)
+        }
+        return builder.toString()
+    }
+
+    override fun toString(): String {
+        return "SyntaxTree(defaultIntent=$defaultIntent, branches=${branches.size})"
+    }
 }

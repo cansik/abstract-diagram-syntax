@@ -9,6 +9,6 @@ class FlowChartParser {
     fun parse(lines : List<String>) {
         // create syntax tree
         val tree = syntaxTreeParser.parse(lines)
-        println(tree)
+        println(tree.toStringTree())
     }
 }

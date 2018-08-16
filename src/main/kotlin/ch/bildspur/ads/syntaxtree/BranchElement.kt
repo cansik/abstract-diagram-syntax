@@ -8,6 +8,6 @@ open class BranchElement(val type : BranchType,
                          val elements : MutableList<SyntaxElement> = mutableListOf()) : SyntaxElement() {
 
     override fun toString(): String {
-        return "BranchElement(type=$type, action=$action, elements=$elements)"
+        return "BranchElement(type=$type, negated=$negated, action=$action, elements=$elements)"
     }
 }
