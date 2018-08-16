@@ -1,20 +1,14 @@
 package ch.bildspur.ads
 
-import ch.bildspur.ads.syntaxtree.SyntaxTree
+import ch.bildspur.ads.syntaxtree.SyntaxTreeParser
 
 class FlowChartParser {
 
-    fun parse(lines : List<String>)
-    {
+    val syntaxTreeParser = SyntaxTreeParser()
+
+    fun parse(lines : List<String>) {
         // create syntax tree
-        val tree = parseSyntaxTree(lines)
-
-    }
-
-    private fun parseSyntaxTree(lines : List<String>) : SyntaxTree
-    {
-        val tree = SyntaxTree()
-
-        return tree
+        val tree = syntaxTreeParser.parse(lines)
+        println(tree)
     }
 }
