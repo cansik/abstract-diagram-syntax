@@ -36,7 +36,7 @@ if management.do("Accept Request?"):
     projectLeader.do("create & send invoice")
     projectLeader.do("create short recap of project")
     projectLeader.do("cleanup and archive project")
-else
+else:
     firstContact.out("Message to customer")
 
 customer.end()	
