@@ -8,7 +8,7 @@ class SyntaxTreeParser {
 
     val commentRegex = Regex("^\\s*#(.*)\$")
     val assignmentRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\s*=\\s*\"([\\w\\s]*)\"")
-    val actionRegex = Regex("^(\\s*)(\\w+)\\.(\\w+)\\(\"?([\\w\\s]*)\"?\\)")
+    val actionRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\(\"?([\\w\\s]*)\"?\\)")
 
     data class ElementDetectionResult(val type : ElementType, val result : MatchResult?)
 
@@ -38,7 +38,7 @@ class SyntaxTreeParser {
         when(parsedLine.type)
         {
             ElementType.COMMENT -> tree.add(CommentElement(values[1]))
-            ElementType.ACTION -> TODO()
+            ElementType.ACTION -> tree.add(ActionElement(values[1], values[2], values[3]))
             ElementType.ASSIGNMENT -> tree.add(AssignmentElement(values[1], values[2], values[3]))
             ElementType.BRANCH -> TODO()
             ElementType.NONE -> {}
@@ -59,6 +59,11 @@ class SyntaxTreeParser {
         if({result = assignmentRegex.findAll(line); result}().count() > 0)
         {
             return ElementDetectionResult(ElementType.ASSIGNMENT, result.first())
+        }
+
+        //action
+        if ({ result = actionRegex.findAll(line); result }().count() > 0) {
+            return ElementDetectionResult(ElementType.ACTION, result.first())
         }
 
         return ElementDetectionResult(ElementType.NONE, null)
