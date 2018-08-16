@@ -1,4 +1,4 @@
-package ch.bildspur.ads.tree
+package ch.bildspur.ads.syntaxtree.types
 
 enum class BranchType(val tag : String) {
     IF("if"),

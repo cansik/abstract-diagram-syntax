@@ -1,4 +1,4 @@
-package ch.bildspur.ads.tree
+package ch.bildspur.ads.syntaxtree
 
 class ActionElement(val target : String,
                     val method : String,

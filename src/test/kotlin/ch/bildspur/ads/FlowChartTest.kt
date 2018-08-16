@@ -11,6 +11,9 @@ class FlowChartTest {
     {
         // read code
         val lines = Files.readAllLines(Paths.get("examples/project.ads"))
+        val parser = FlowChartParser()
 
+        // parse
+        parser.parse(lines)
     }
 }
