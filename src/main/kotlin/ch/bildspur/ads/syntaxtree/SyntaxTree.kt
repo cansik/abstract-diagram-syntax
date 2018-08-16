@@ -3,8 +3,7 @@ package ch.bildspur.ads.syntaxtree
 import ch.bildspur.ads.syntaxtree.types.BranchType
 import java.util.*
 
-class SyntaxTree : BranchElement(BranchType.ROOT)
-{
+class SyntaxTree(val defaultIntent: Int = 4) : BranchElement(BranchType.ROOT) {
 
     private var branches = Stack<BranchElement>()
 
@@ -12,25 +11,22 @@ class SyntaxTree : BranchElement(BranchType.ROOT)
         branches.push(this)
     }
 
-    val currentBranch : BranchElement
+    val currentBranch: BranchElement
         get() = branches.peek()
 
-    val currentIntent : Int
-        get() = branches.size - 1
+    val currentIntent: Int
+        get() = (branches.size - 1) * defaultIntent
 
-    fun add(element : SyntaxElement)
-    {
+    fun add(element: SyntaxElement) {
         currentBranch.elements.add(element)
     }
 
-    fun branch(element: BranchElement)
-    {
+    fun branch(element: BranchElement) {
         currentBranch.elements.add(element)
         branches.push(element)
     }
 
-    fun merge()
-    {
+    fun merge() {
         branches.pop()
     }
 }

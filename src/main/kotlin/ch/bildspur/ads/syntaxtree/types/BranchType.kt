@@ -5,5 +5,13 @@ enum class BranchType(val tag : String) {
     IF("if"),
     ELSE("else"),
     DO_WHILE("do while"),
-    WHILE("while")
+    WHILE("while");
+
+    companion object {
+        @JvmStatic
+        fun byTag(tag : String) : BranchType?
+        {
+            return BranchType.values().find { it.tag == tag }
+        }
+    }
 }
