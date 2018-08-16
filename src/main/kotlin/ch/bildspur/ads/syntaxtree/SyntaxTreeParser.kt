@@ -4,19 +4,28 @@ import ch.bildspur.ads.syntaxtree.types.BranchType
 import ch.bildspur.ads.syntaxtree.types.ElementType
 
 class SyntaxTreeParser {
+    private val defaultIntent = 4
+
     private val textMatchRegex = "[\\w\\s,\\.\\-\\^'¨\\\$=\\/\\\\&%\\*\\+§;:_£!`\\?#°<>]*"
 
     private val intentRegex = Regex("^(\\s)+")
 
-    private val commentRegex = Regex("^\\s*#($textMatchRegex)\$")
+    private val commentRegex = Regex("^\\s*#(.*)\$")
     private val assignmentRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\s*=\\s*\"($textMatchRegex)\"")
     private val actionRegex = Regex("^\\s*(\\w+)\\.(\\w+)\\(\"?($textMatchRegex)\"?\\)")
     private val branchRegex = Regex("^\\s*(if|while|do while|else)+\\s*(!?)(?:(\\w+)\\.(\\w+)\\(\"?($textMatchRegex)\"?\\))?:")
 
     data class ElementDetectionResult(val type: ElementType, val result: MatchResult?)
 
-    fun parse(lines: List<String>): SyntaxTree {
-        val tree = SyntaxTree()
+    fun parse(lines: List<String>, autoDetectIntent : Boolean = false): SyntaxTree {
+        // auto detect intent
+        val intent = if(autoDetectIntent)
+            lines.map { intentRegex.findAll(it).map { it.value.length }.sum() }.toSet().sortedBy { it }[1]
+        else
+            defaultIntent
+
+        // parse tree
+        val tree = SyntaxTree(intent)
         lines.forEach { parseLine(it, tree) }
         return tree
     }
@@ -29,7 +38,7 @@ class SyntaxTreeParser {
 
         // detect intent and merge if possible
         val intent = intentRegex.findAll(line).map { it.value.length }.sum()
-        while (tree.currentIntent != intent)
+        while (parsedLine.type != ElementType.COMMENT && tree.currentIntent != intent)
             tree.merge()
 
         // parse elements

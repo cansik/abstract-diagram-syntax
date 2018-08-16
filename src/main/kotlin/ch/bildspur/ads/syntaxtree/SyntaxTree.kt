@@ -3,7 +3,7 @@ package ch.bildspur.ads.syntaxtree
 import ch.bildspur.ads.syntaxtree.types.BranchType
 import java.util.*
 
-class SyntaxTree(val defaultIntent: Int = 4) : BranchElement(BranchType.ROOT) {
+class SyntaxTree(val intentSize: Int) : BranchElement(BranchType.ROOT) {
 
     private var branches = Stack<BranchElement>()
 
@@ -15,7 +15,7 @@ class SyntaxTree(val defaultIntent: Int = 4) : BranchElement(BranchType.ROOT) {
         get() = branches.peek()
 
     val currentIntent: Int
-        get() = (branches.size - 1) * defaultIntent
+        get() = (branches.size - 1) * intentSize
 
     fun add(element: SyntaxElement) {
         currentBranch.elements.add(element)
@@ -41,12 +41,12 @@ class SyntaxTree(val defaultIntent: Int = 4) : BranchElement(BranchType.ROOT) {
 
         // add more branches
         (element as? BranchElement)?.elements?.forEach {
-            toStringTree(it, builder, intent + defaultIntent)
+            toStringTree(it, builder, intent + intentSize)
         }
         return builder.toString()
     }
 
     override fun toString(): String {
-        return "SyntaxTree(defaultIntent=$defaultIntent, branches=${branches.size})"
+        return "SyntaxTree(intentSize=$intentSize, branches=${branches.size})"
     }
 }
