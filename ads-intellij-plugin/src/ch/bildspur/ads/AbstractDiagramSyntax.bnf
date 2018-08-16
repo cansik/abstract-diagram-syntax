@@ -1,0 +1,20 @@
+{
+  parserClass="ch.bildspur.ads.parser.SimpleParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Ads"
+  psiImplClassSuffix="Impl"
+  psiPackage="ch.bildspur.ads.psi"
+  psiImplPackage="ch.bildspur.ads.psi.impl"
+
+  elementTypeHolderClass="ch.bildspur.ads.psi.AdsTypes"
+  elementTypeClass="ch.bildspur.ads.psi.AdsElementType"
+  tokenTypeClass="ch.bildspur.ads.psi.AdsTokenType"
+}
+
+simpleFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY

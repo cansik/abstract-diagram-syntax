@@ -1,4 +1,4 @@
-package ch.bildspur.ads;
+package ch.bildspur.ads.file;
 
 import com.intellij.openapi.fileTypes.*;
         import org.jetbrains.annotations.NotNull;

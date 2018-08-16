@@ -1,5 +1,7 @@
-package ch.bildspur.ads;
+package ch.bildspur.ads.file;
 
+import ch.bildspur.ads.AdsIcons;
+import ch.bildspur.ads.AdsLanguage;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import org.jetbrains.annotations.*;
 
